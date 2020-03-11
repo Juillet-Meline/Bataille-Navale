@@ -86,6 +86,7 @@ void modeAide(){
 
     printf("Tapper sur 1 pour revenir au menu");
     scanf("%d",&retour);
+
     if (retour=1){
         menuBase();
     }
