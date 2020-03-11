@@ -5,8 +5,8 @@
  * ---------------------------------------------------------------------------
  * Createur : Meline Juillet
  * But : Faire une bataille navale dans le cadre du cour MA-20.
- * Verssion : travail sur la verssion 0.1 - verssion du 0.1: 0.2
- * Date : 06.03.2020
+ * Verssion : travail sur la verssion 0.1 - verssion du 0.1: 0.3
+ * Date : 11.03.2020
  * ---------------------------------------------------------------------------
  */
 
@@ -17,44 +17,50 @@ void jeux(){
     //ici l'on netoye la page
     system("cls");
 
+    //declaration et initialisation des varriables
     int afLigne,afCol;
-
-    //declaration des varriable
     char visuel[10][10]={
-        "~","~","~","~","~","~","~","~","~","~",
-        "~","~","~","~","~","~","~","~","~","~",
-        "~","~","~","~","~","~","~","~","~","~",
-        "~","~","~","~","~","~","~","~","~","~",
-        "~","~","~","~","~","~","~","~","~","~",
-        "~","~","~","~","~","~","~","~","~","~",
-        "~","~","~","~","~","~","~","~","~","~",
-        "~","~","~","~","~","~","~","~","~","~",
-        "~","~","~","~","~","~","~","~","~","~",
-        "~","~","~","~","~","~","~","~","~","~",};
+            '~','~','~','~','~','~','~','~',
+            '~','~','~','~','~','~','~','~',
+            '~','~','~','~','~','~','~','~',
+            '~','~','~','~','~','~','~','~',
+            '~','~','~','~','~','~','~','~',
+            '~','~','~','~','~','~','~','~',
+            '~','~','~','~','~','~','~','~',
+            '~','~','~','~','~','~','~','~',
+            '~','~','~','~','~','~','~','~',
+            '~','~','~','~','~','~','~','~'};
 
     int grille [10][10] = {
-        0,5,0,0,0,1,0,0,0,0,
-        0,5,0,0,0,1,0,0,0,0,
-        0,0,0,0,0,1,0,0,0,0,
-        0,0,0,0,0,1,0,0,0,0,
-        0,0,0,0,0,1,0,0,0,0,
-        2,2,2,2,0,0,0,0,0,0,
-        0,0,0,0,0,0,0,0,0,0,
-        0,0,3,3,3,0,0,0,0,0,
-        0,0,0,0,0,0,4,4,4,0,
-        0,0,0,0,0,0,0,0,0,0};
+            0,5,0,0,0,1,0,0,0,0,
+            0,5,0,0,0,1,0,0,0,0,
+            0,0,0,0,0,1,0,0,0,0,
+            0,0,0,0,0,1,0,0,0,0,
+            0,0,0,0,0,1,0,0,0,0,
+            2,2,2,2,0,0,0,0,0,0,
+            0,0,0,0,0,0,0,0,0,0,
+            0,0,3,3,3,0,0,0,0,0,
+            0,0,0,0,0,0,4,4,4,0,
+            0,0,0,0,0,0,0,0,0,0};
 
-    printf("Bataille Navale \n\n");
 
-    printf(" 1  2  3  4  5  6  7  8  9  10 \n");
-    printf("_______________________________\n");
+    //creation du tabreau graphique avec les numero des colones et des lignes
+    printf("   |_1___2___3___4___5___6___7___8___9__10_|\n");
 
+    //Créeation d'une double boucle pour afficher le tableau
     for (afLigne=0; afLigne<10;afLigne++){
+        if (afLigne==9){
+            printf(" %d",afLigne+1);    //Un if car le 10 prend un caractere de plus
+        } else{
+            printf("  %d",afLigne +1);
+        }
         for (afCol=0; afCol<10;afCol++){
             printf("| %c ",visuel[afLigne][afCol]);
         }
         printf("|\n");
+        printf("   |---|---|---|---|---|---|---|---|---|---|\n");
     }
+
     system("pause");
 }
 
@@ -97,7 +103,7 @@ void menuBase(){
     //ici l'on netoye la page
     system("cls");
 
-// Mise en place de la page titre dans une fonction pour la reutiliser.
+    // Mise en place de la page titre dans une fonction pour la reutiliser.
     int choix=0;    //initioalisation de la variable.
     printf("Bataille Navale\n\n");
 
