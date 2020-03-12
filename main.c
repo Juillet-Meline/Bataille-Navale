@@ -5,34 +5,36 @@
  * ---------------------------------------------------------------------------
  * Createur : Meline Juillet
  * But : Faire une bataille navale dans le cadre du cour MA-20.
- * Verssion : travail sur la verssion 0.1 - verssion du 0.1: 0.3
- * Date : 11.03.2020
+ * Verssion : travail sur la verssion 0.1 - verssion du 0.1: 0.4
+ * Date : 12.03.2020
  * ---------------------------------------------------------------------------
  */
 
 //ici l'on declare les fonction utiliser pour les utiliser patout.
 void menuBase();
 
+//================================= MODE JEUX =====================================================
 void jeux(){
     //ici l'on netoye la page
     system("cls");
 
     //declaration et initialisation des varriables
     int afLigne,afCol;
+    int verChoisi=0,horChoisi=0;
     char visuel[10][10]={
-            '~','~','~','~','~','~','~','~',
-            '~','~','~','~','~','~','~','~',
-            '~','~','~','~','~','~','~','~',
-            '~','~','~','~','~','~','~','~',
-            '~','~','~','~','~','~','~','~',
-            '~','~','~','~','~','~','~','~',
-            '~','~','~','~','~','~','~','~',
-            '~','~','~','~','~','~','~','~',
-            '~','~','~','~','~','~','~','~',
-            '~','~','~','~','~','~','~','~'};
+            '~','~','~','~','~','~','~','~','~','~',
+            '~','~','~','~','~','~','~','~','~','~',
+            '~','~','~','~','~','~','~','~','~','~',
+            '~','~','~','~','~','~','~','~','~','~',
+            '~','~','~','~','~','~','~','~','~','~',
+            '~','~','~','~','~','~','~','~','~','~',
+            '~','~','~','~','~','~','~','~','~','~',
+            '~','~','~','~','~','~','~','~','~','~',
+            '~','~','~','~','~','~','~','~','~','~',
+            '~','~','~','~','~','~','~','~','~','~'};
 
     int grille [10][10] = {
-            0,5,0,0,0,1,0,0,0,0,
+            9,5,0,0,0,1,0,0,0,0,
             0,5,0,0,0,1,0,0,0,0,
             0,0,0,0,0,1,0,0,0,0,
             0,0,0,0,0,1,0,0,0,0,
@@ -43,6 +45,7 @@ void jeux(){
             0,0,0,0,0,0,4,4,4,0,
             0,0,0,0,0,0,0,0,0,0};
 
+    printf("              Bataille Navale\n\n\n");
 
     //creation du tabreau graphique avec les numero des colones et des lignes
     printf("   |_1___2___3___4___5___6___7___8___9__10_|\n");
@@ -61,9 +64,28 @@ void jeux(){
         printf("   |---|---|---|---|---|---|---|---|---|---|\n");
     }
 
-    system("pause");
-}
+    do {
+        do {
+            printf("\n\nChoisisez une case verticale :");
+            scanf("%d", &verChoisi);
+        } while (verChoisi > 10);
 
+        do {
+            printf("Choisisez une case horizontal :");
+            scanf("%d", &horChoisi);
+        } while (horChoisi > 10);
+
+        if (grille[verChoisi][horChoisi]-1 == 9) {
+            printf("Vous avez deja toucher cette case recommancer \n");
+        }
+    }while(grille[verChoisi][horChoisi] -1 ==9);
+
+
+
+    system("pause");
+
+}
+//================================= MODE AIDE =====================================================
 void modeAide(){
 
     //ici l'on netoye la page
@@ -98,6 +120,7 @@ void modeAide(){
     }
 
 }
+//================================= MENU BASE =====================================================
 void menuBase(){
 
     //ici l'on netoye la page
@@ -130,7 +153,7 @@ void menuBase(){
     }
 }
 
-
+//================================= MAIN =====================================================
 int main() {
 
     //l'on choisis le nom de la console
