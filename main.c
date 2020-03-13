@@ -3,10 +3,10 @@
 
 /*
  * ---------------------------------------------------------------------------
- * Createur : Meline Juillet
+ * Createur : Mikael Juillet
  * But : Faire une bataille navale dans le cadre du cour MA-20.
- * Verssion : travail sur la verssion 0.1 - verssion du 0.1: 0.4
- * Date : 12.03.2020
+ * Verssion : travail sur la verssion 0.1 - verssion du 0.1: 0.5
+ * Date : 13.03.2020
  * ---------------------------------------------------------------------------
  */
 
@@ -19,8 +19,10 @@ void jeux(){
     system("cls");
 
     //declaration et initialisation des varriables
-    int afLigne,afCol;
+    int afLigne=0,afCol=0;
     int verChoisi=0,horChoisi=0;
+    int gagner=0;
+    int porteAvion=0,croiseur=0,contreTorpilleur1=0,contreTorpilleur2=0,torpilleur=0;
     char visuel[10][10]={
             '~','~','~','~','~','~','~','~','~','~',
             '~','~','~','~','~','~','~','~','~','~',
@@ -34,7 +36,7 @@ void jeux(){
             '~','~','~','~','~','~','~','~','~','~'};
 
     int grille [10][10] = {
-            9,5,0,0,0,1,0,0,0,0,
+            0,5,0,0,0,1,0,0,0,0,
             0,5,0,0,0,1,0,0,0,0,
             0,0,0,0,0,1,0,0,0,0,
             0,0,0,0,0,1,0,0,0,0,
@@ -63,22 +65,65 @@ void jeux(){
         printf("|\n");
         printf("   |---|---|---|---|---|---|---|---|---|---|\n");
     }
-
     do {
         do {
-            printf("\n\nChoisisez une case verticale :");
-            scanf("%d", &verChoisi);
-        } while (verChoisi > 10);
+            do {
+                printf("\n\nChoisisez une case verticale :");
+                scanf("%d", &verChoisi);
+                verChoisi -= 1;
+            } while (verChoisi > 9||verChoisi<0);
 
-        do {
-            printf("Choisisez une case horizontal :");
-            scanf("%d", &horChoisi);
-        } while (horChoisi > 10);
+            do {
+                printf("Choisisez une case horizontal :");
+                scanf("%d", &horChoisi);
+                horChoisi -= 1;
+            } while (horChoisi > 9||horChoisi<0);
 
-        if (grille[verChoisi][horChoisi]-1 == 9) {
-            printf("Vous avez deja toucher cette case recommancer \n");
+            if (grille[verChoisi][horChoisi] == 9) {
+                printf("Vous avez deja toucher cette case recommancer \n");
+            }
+        } while (grille[verChoisi][horChoisi] == 9);
+        if (grille[verChoisi][horChoisi] == 0) {
+            printf("Rater");
+            grille[verChoisi][horChoisi] = 9;
         }
-    }while(grille[verChoisi][horChoisi] -1 ==9);
+        if(grille[verChoisi][horChoisi]==1){
+            printf("toucher");
+            grille[verChoisi][horChoisi] =9;
+            gagner++;
+            porteAvion++;
+        }
+        if(grille[verChoisi][horChoisi]==2){
+            printf("toucher");
+            grille[verChoisi][horChoisi] =9;
+            gagner++;
+            croiseur++;
+        }
+        if(grille[verChoisi][horChoisi]==3){
+            printf("toucher");
+            grille[verChoisi][horChoisi] =9;
+            gagner++;
+            contreTorpilleur1++;
+        }
+        if(grille[verChoisi][horChoisi]==4){
+            printf("toucher");
+            grille[verChoisi][horChoisi] =9;
+            gagner++;
+            contreTorpilleur2++;
+        }
+        if(grille[verChoisi][horChoisi]==5){
+            printf("toucher");
+            grille[verChoisi][horChoisi] =9;
+            gagner++;
+            torpilleur++;
+        }
+        if(porteAvion==5||croiseur==4||contreTorpilleur1==3||contreTorpilleur2==3||torpilleur==2){
+            printf(" couler");
+        }
+        if(gagner==17){
+            printf("gagner");
+        }
+    }while(gagner<17);
 
 
 
