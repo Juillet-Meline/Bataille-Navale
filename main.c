@@ -5,8 +5,8 @@
  * ---------------------------------------------------------------------------
  * Createur : Mikael Juillet
  * But : Faire une bataille navale dans le cadre du cour MA-20.
- * Verssion : travail sur la verssion 0.1 - verssion du 0.1: 0.5
- * Date : 13.03.2020
+ * Verssion : travail sur la verssion 0.1 - verssion du 0.1: 0.6
+ * Date : 16.03.2020
  * ---------------------------------------------------------------------------
  */
 
@@ -21,7 +21,7 @@ void jeux(){
     //declaration et initialisation des varriables
     int afLigne=0,afCol=0;
     int verChoisi=0,horChoisi=0;
-    int gagner=0;
+    int gagner=0, coups=0;
     int porteAvion=0,croiseur=0,contreTorpilleur1=0,contreTorpilleur2=0,torpilleur=0;
     char visuel[10][10]={
             '~','~','~','~','~','~','~','~','~','~',
@@ -47,26 +47,34 @@ void jeux(){
             0,0,0,0,0,0,4,4,4,0,
             0,0,0,0,0,0,0,0,0,0};
 
-    printf("              Bataille Navale\n\n\n");
-
-    //creation du tabreau graphique avec les numero des colones et des lignes
-    printf("   |_1___2___3___4___5___6___7___8___9__10_|\n");
-
-    //Créeation d'une double boucle pour afficher le tableau
-    for (afLigne=0; afLigne<10;afLigne++){
-        if (afLigne==9){
-            printf(" %d",afLigne+1);    //Un if car le 10 prend un caractere de plus
-        } else{
-            printf("  %d",afLigne +1);
-        }
-        for (afCol=0; afCol<10;afCol++){
-            printf("| %c ",visuel[afLigne][afCol]);
-        }
-        printf("|\n");
-        printf("   |---|---|---|---|---|---|---|---|---|---|\n");
-    }
+    //debut de la boucle qui nous sert à rafrechire la page
     do {
+
+        printf("              Bataille Navale\n\n\n");
+
+        //creation du tabreau graphique avec les numero des colones et des lignes
+
+        printf("   |_1___2___3___4___5___6___7___8___9__10_|\n");
+
+        //Créeation d'une double boucle pour afficher le tableau
+        for (afLigne=0; afLigne<10;afLigne++){
+            if (afLigne==9){
+                printf(" %d",afLigne+1);    //Un if car le 10 prend un caractere de plus
+            } else{
+                printf("  %d",afLigne +1);
+            }
+            for (afCol=0; afCol<10;afCol++){
+                printf("| %c ",visuel[afLigne][afCol]);
+            }
+            printf("|\n");
+            printf("   |---|---|---|---|---|---|---|---|---|---|\n");
+        }
+
+
+        //demande des choix à l'utilisteur
+
         do {
+
             do {
                 printf("\n\nChoisisez une case verticale :");
                 scanf("%d", &verChoisi);
@@ -79,55 +87,91 @@ void jeux(){
                 horChoisi -= 1;
             } while (horChoisi > 9||horChoisi<0);
 
-            if (grille[verChoisi][horChoisi] == 9) {
-                printf("Vous avez deja toucher cette case recommancer \n");
+            if (grille[horChoisi][verChoisi] == 9) {
+                printf("\nVous avez deja toucher cette case recommencer \n");
             }
-        } while (grille[verChoisi][horChoisi] == 9);
-        if (grille[verChoisi][horChoisi] == 0) {
-            printf("Rater");
-            grille[verChoisi][horChoisi] = 9;
+        } while (grille[horChoisi][verChoisi] == 9);
+
+        //toutes les posibilité de jeux par le joueur (affichage de gagner ou pas, X ou O)
+        if (grille[horChoisi][verChoisi] == 0) {
+            printf("\nRater");
+            grille[horChoisi][verChoisi] = 9;
+            visuel[horChoisi][verChoisi] ='O';
+            coups++;
         }
-        if(grille[verChoisi][horChoisi]==1){
-            printf("toucher");
-            grille[verChoisi][horChoisi] =9;
+        if(grille[horChoisi][verChoisi]==1){
+            printf("\ntoucher");
+            grille[horChoisi][verChoisi] =9;
             gagner++;
             porteAvion++;
+            coups++;
+            visuel[horChoisi][verChoisi] ='X';
         }
-        if(grille[verChoisi][horChoisi]==2){
-            printf("toucher");
-            grille[verChoisi][horChoisi] =9;
+        if(grille[horChoisi][verChoisi]==2){
+            printf("\ntoucher");
+            grille[horChoisi][verChoisi] =9;
             gagner++;
             croiseur++;
+            coups++;
+            visuel[horChoisi][verChoisi] ='X';
         }
-        if(grille[verChoisi][horChoisi]==3){
-            printf("toucher");
-            grille[verChoisi][horChoisi] =9;
+        if(grille[horChoisi][verChoisi]==3){
+            printf("\ntoucher");
+            grille[horChoisi][verChoisi] =9;
             gagner++;
             contreTorpilleur1++;
+            coups++;
+            visuel[horChoisi][verChoisi] ='X';
         }
-        if(grille[verChoisi][horChoisi]==4){
-            printf("toucher");
-            grille[verChoisi][horChoisi] =9;
+        if(grille[horChoisi][verChoisi]==4){
+            printf("\ntoucher");
+            grille[horChoisi][verChoisi] =9;
             gagner++;
             contreTorpilleur2++;
+            coups++;
+            visuel[horChoisi][verChoisi] ='X';
         }
-        if(grille[verChoisi][horChoisi]==5){
-            printf("toucher");
-            grille[verChoisi][horChoisi] =9;
+        if(grille[horChoisi][verChoisi]==5){
+            printf("\ntoucher");
+            grille[horChoisi][verChoisi] =9;
             gagner++;
             torpilleur++;
+            coups++;
+            visuel[horChoisi][verChoisi] ='X';
         }
-        if(porteAvion==5||croiseur==4||contreTorpilleur1==3||contreTorpilleur2==3||torpilleur==2){
+
+        //chaque posiblilité de gagner
+        if(porteAvion==5){
             printf(" couler");
+            porteAvion=0;
+        }
+        if (croiseur==4){
+            printf(" couler");
+            croiseur=0;
+        }
+        if(contreTorpilleur1==3){
+            printf(" couler");
+            contreTorpilleur1=0;
+        }
+        if(contreTorpilleur2==3){
+            printf(" couler");
+            contreTorpilleur2=0;
+        }
+        if(torpilleur==2){
+            printf(" couler");
+            torpilleur=0;
         }
         if(gagner==17){
             printf("gagner");
         }
+        Sleep(700);
+        system("cls");
     }while(gagner<17);
-
-
-
+    system("cls");
+    printf("\nVous avez fini la partie avec %d coups\n\n",coups);
     system("pause");
+    menuBase();
+
 
 }
 //================================= MODE AIDE =====================================================
@@ -135,9 +179,6 @@ void modeAide(){
 
     //ici l'on netoye la page
     system("cls");
-
-    //decaration et initialisation de la variable retour il vas nous permettre d'aller au menu
-    int retour=0;
 
     //creation du mode aide qui afficher les regle de base du programme
     printf("Mode Aide\n\n");
@@ -157,12 +198,8 @@ void modeAide(){
     printf("2 contre-torpilleurs (il s'etale sur 3 cases)\n");
     printf("1 torpilleur (il s'etale sur 2 cases)\n\n\n");
 
-    printf("Tapper sur 1 pour revenir au menu");
-    scanf("%d",&retour);
-
-    if (retour=1){
-        menuBase();
-    }
+    system("pause");
+    menuBase();
 
 }
 //================================= MENU BASE =====================================================
@@ -176,10 +213,8 @@ void menuBase(){
     printf("Bataille Navale\n\n");
 
     printf("1 : Jouer\n");
-    printf("2 : Utilisateur\n");
-    printf("3 : Resultat\n");
-    printf("4 : Aide\n");
-    printf("5 : Quitter\n");
+    printf("2 : Aide\n");
+    printf("3 : Quitter\n");
 
     //Chois vers les différents mode
     printf("Choisissez une option :");
@@ -188,13 +223,9 @@ void menuBase(){
     switch(choix){
         case 1:jeux() ;
             break;
-        case 2: ;
+        case 2:modeAide() ;
             break;
-        case 3: ;
-            break;
-        case 4: modeAide() ;
-            break;
-        case 5: system("exit");
+        case 3: system("exit");
     }
 }
 
