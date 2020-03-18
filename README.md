@@ -9,4 +9,4 @@ Pour les developpeurs :
 ### Téléchargement
 Pour télécharger ce projet vous pouver cliquer sur Clone or download puis Download Zip.
 ### Clone 
-Pour cloner ce projet vous pouver cliquer sur Clone or download puis copier la source. Aller dans le dossire de votre choix dans votre ordinateur et faite dans la console git bash Here une commande git clone "source".
+Pour cloner ce projet vous pouver cliquer sur Clone or download puis copier la source. Aller dans le dossier de votre choix dans votre ordinateur et faite dans la console git bash Here une commande git clone "source".

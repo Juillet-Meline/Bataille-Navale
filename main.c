@@ -167,6 +167,8 @@ void jeux(){
         Sleep(700);
         system("cls");
     }while(gagner<17);
+
+    //Fin de la partie avec fonction de retour au menu 
     system("cls");
     printf("\nVous avez fini la partie avec %d coups\n\n",coups);
     system("pause");
