@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include <windows.h>
+#include <time.h>
 
 /*
  * ---------------------------------------------------------------------------
  * Createur : Mikael Juillet
  * But : Faire une bataille navale dans le cadre du cour MA-20.
- * Verssion : travail sur la verssion 1.0 - verssion total 0.6
- * Date : 23.03.2020
+ * Verssion : travail sur la verssion 1.0 - verssion total 0.7
+ * Date : 25.03.2020
  * ---------------------------------------------------------------------------
  */
 
@@ -15,23 +16,121 @@ void menuBase();
 void jeux();
 void grille();
 
-int grilleBase[10][10] ={0};
+int grilleBase [10][10] ={0};
 
 //================================= MODE grille =====================================================
-void grille(); {
+void grille() {
+    int ligne, col, aleatoire = 0;
 
-int grille1 [10][10] = {
-        0,5,0,0,0,1,0,0,0,0,
-        0,5,0,0,0,1,0,0,0,0,
-        0,0,0,0,0,1,0,0,0,0,
-        0,0,0,0,0,1,0,0,0,0,
-        0,0,0,0,0,1,0,0,0,0,
-        2,2,2,2,0,0,0,0,0,0,
-        0,0,0,0,0,0,0,0,0,0,
-        0,0,3,3,3,0,0,0,0,0,
-        0,0,0,0,0,0,4,4,4,0,
-        0,0,0,0,0,0,0,0,0,0};
+    int grille1[10][10] = {
+            0,5,0,0,0,1,0,0,0,0,
+            0,5,0,0,0,1,0,0,0,0,
+            0,0,0,0,0,1,0,0,0,0,
+            0,0,0,0,0,1,0,0,0,0,
+            0,0,0,0,0,1,0,0,0,0,
+            2,2,2,2,0,0,0,0,0,0,
+            0,0,0,0,0,0,0,0,0,0,
+            0,0,3,3,3,0,0,0,0,0,
+            0,0,0,0,0,0,4,4,4,0,
+            0,0,0,0,0,0,0,0,0,0};
+
+    int grille2[10][10] = {
+            0,1,0,0,0,3,0,0,0,0,
+            0,1,0,0,0,3,0,0,0,0,
+            0,1,0,0,0,3,0,0,0,0,
+            0,1,0,2,0,0,0,0,0,0,
+            0,1,0,2,0,0,0,0,0,0,
+            0,0,0,2,0,0,0,0,0,0,
+            0,0,0,2,0,0,0,0,0,0,
+            0,0,0,0,0,4,4,4,0,0,
+            0,0,0,0,0,0,5,5,0,0,
+            0,0,0,0,0,0,0,0,0,0};
+
+    int grille3[10][10] = {
+            0,0,0,0,0,0,0,0,0,0,
+            0,0,0,0,0,0,0,0,0,0,
+            0,0,0,5,5,0,0,0,0,0,
+            0,0,0,0,0,0,0,2,0,0,
+            1,1,1,1,1,0,0,2,0,0,
+            0,0,0,3,0,0,0,2,0,0,
+            0,0,0,3,0,0,0,2,0,0,
+            0,0,0,3,0,0,0,0,0,0,
+            0,0,0,0,0,4,4,4,0,0,
+            0,0,0,0,0,0,0,0,0,0};
+
+    int grille4[10][10] = {
+            0,0,4,4,4,0,0,0,0,0,
+            0,0,0,0,0,0,0,0,0,5,
+            0,0,0,0,0,0,0,0,0,5,
+            0,0,0,0,0,0,0,0,0,0,
+            0,0,0,0,0,0,0,0,0,0,
+            0,0,0,0,0,0,0,0,0,2,
+            0,0,0,0,0,0,0,0,0,2,
+            0,0,0,0,0,0,0,0,0,2,
+            0,0,0,0,0,0,0,0,0,2,
+            1,1,1,1,1,0,3,3,3,0};
+
+    int grille5[10][10] = {
+            1,1,1,1,1,0,0,0,0,0,
+            0,0,0,0,0,0,0,0,0,0,
+            0,0,0,0,2,0,0,0,0,0,
+            0,0,0,0,2,0,0,0,0,0,
+            0,0,0,0,2,0,0,0,0,0,
+            0,0,0,0,2,0,3,0,0,0,
+            0,0,4,0,0,0,3,0,0,0,
+            0,0,4,0,0,0,3,0,0,0,
+            0,0,4,0,0,0,0,0,0,0,
+            0,0,0,0,5,5,0,0,0,0};
+
+    srand((unsigned) time(NULL));
+    aleatoire = 1 + rand() % 5;
+
+    switch (aleatoire) {
+        case 1:
+            for (ligne = 0; ligne < 10; ligne++) {
+                for (col = 0; col < 10; col++) {
+                    grilleBase[ligne][col] = grille1[ligne][col];
+                }
+            }
+            break;
+        case 2:
+            for (ligne = 0; ligne < 10; ligne++) {
+                for (col = 0; col < 10; col++) {
+                    grilleBase[ligne][col] = grille2[ligne][col];
+                }
+            }
+            break;
+        case 3:
+            for (ligne = 0; ligne < 10; ligne++) {
+                for (col = 0; col < 10; col++) {
+                    grilleBase[ligne][col] = grille3[ligne][col];
+                }
+            }
+            break;
+        case 4:
+            for (ligne = 0; ligne < 10; ligne++) {
+                for (col = 0; col < 10; col++) {
+                    grilleBase[ligne][col] = grille4[ligne][col];
+                }
+            }
+            break;
+        case 5:
+            for (ligne = 0; ligne < 10; ligne++) {
+                for (col = 0; col < 10; col++) {
+                    grilleBase[ligne][col] = grille5[ligne][col];
+                }
+            }
+            break;
+        default:
+            for (ligne = 0; ligne < 10; ligne++) {
+        for (col = 0; col < 10; col++) {
+            grilleBase[ligne][col] = grille5[ligne][col];
+        }
+    }
+            break;
+    }
 }
+
 
 //================================= MODE JEUX =====================================================
 void jeux(){
@@ -43,7 +142,6 @@ void jeux(){
     int verChoisi=0,horChoisi=0;
     int gagner=0, coups=0;
     int porteAvion=0,croiseur=0,contreTorpilleur1=0,contreTorpilleur2=0,torpilleur=0;
-    int grille [10][10];
     char visuel[10][10]={
             '~','~','~','~','~','~','~','~','~','~',
             '~','~','~','~','~','~','~','~','~','~',
@@ -57,6 +155,7 @@ void jeux(){
             '~','~','~','~','~','~','~','~','~','~'};
 
     system("cls");
+
 
     //debut de la boucle qui nous sert à rafrechire la page
     do {
@@ -98,53 +197,55 @@ void jeux(){
                 horChoisi -= 1;
             } while (horChoisi > 9||horChoisi<0);
 
-            if (grille[horChoisi][verChoisi] == 9) {
+            if (grilleBase[horChoisi][verChoisi] == 9) {
                 printf("\nVous avez deja toucher cette case recommencer \n");
             }
-        } while (grille[horChoisi][verChoisi] == 9);
+        } while (grilleBase[horChoisi][verChoisi] == 9);
+
+
 
         //toutes les posibilité de jeux par le joueur (affichage de gagner ou pas, X ou O)
-        if (grille[horChoisi][verChoisi] == 0) {
+        if (grilleBase[horChoisi][verChoisi] == 0) {
             printf("\nRater");
-            grille[horChoisi][verChoisi] = 9;
+            grilleBase[horChoisi][verChoisi] = 9;
             visuel[horChoisi][verChoisi] ='O';
             coups++;
         }
-        if(grille[horChoisi][verChoisi]==1){
+        if(grilleBase[horChoisi][verChoisi]==1){
             printf("\ntoucher");
-            grille[horChoisi][verChoisi] =9;
+            grilleBase[horChoisi][verChoisi] =9;
             gagner++;
             porteAvion++;
             coups++;
             visuel[horChoisi][verChoisi] ='X';
         }
-        if(grille[horChoisi][verChoisi]==2){
+        if(grilleBase[horChoisi][verChoisi]==2){
             printf("\ntoucher");
-            grille[horChoisi][verChoisi] =9;
+            grilleBase[horChoisi][verChoisi] =9;
             gagner++;
             croiseur++;
             coups++;
             visuel[horChoisi][verChoisi] ='X';
         }
-        if(grille[horChoisi][verChoisi]==3){
+        if(grilleBase[horChoisi][verChoisi]==3){
             printf("\ntoucher");
-            grille[horChoisi][verChoisi] =9;
+            grilleBase[horChoisi][verChoisi] =9;
             gagner++;
             contreTorpilleur1++;
             coups++;
             visuel[horChoisi][verChoisi] ='X';
         }
-        if(grille[horChoisi][verChoisi]==4){
+        if(grilleBase[horChoisi][verChoisi]==4){
             printf("\ntoucher");
-            grille[horChoisi][verChoisi] =9;
+            grilleBase[horChoisi][verChoisi] =9;
             gagner++;
             contreTorpilleur2++;
             coups++;
             visuel[horChoisi][verChoisi] ='X';
         }
-        if(grille[horChoisi][verChoisi]==5){
+        if(grilleBase[horChoisi][verChoisi]==5){
             printf("\ntoucher");
-            grille[horChoisi][verChoisi] =9;
+            grilleBase[horChoisi][verChoisi] =9;
             gagner++;
             torpilleur++;
             coups++;
@@ -234,7 +335,8 @@ void menuBase(){
     scanf("%d",&choix);
 
     switch(choix){
-        case 1:jeux() ;
+        case 1:grille();
+                jeux() ;
             break;
         case 2:modeAide() ;
             break;
@@ -243,7 +345,7 @@ void menuBase(){
 }
 
 //================================= MAIN =====================================================
-int main() {
+int main(){
 
     //l'on choisis le nom de la console
     SetConsoleTitle("Bataille Navale");
