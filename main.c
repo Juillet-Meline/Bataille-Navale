@@ -7,7 +7,7 @@
  * Createur : Mikael Juillet
  * But : Faire une bataille navale dans le cadre du cour MA-20.
  * Verssion : travail sur la verssion 1.0 - verssion total 0.7
- * Date : 25.03.2020
+ * Date : 26.03.2020
  * ---------------------------------------------------------------------------
  */
 
@@ -15,11 +15,13 @@
 void menuBase();
 void jeux();
 void grille();
-
+// gille de base car nous avons besoin ici pour l'utiliser dans toutes les fonction.
 int grilleBase [10][10] ={0};
 
 //================================= MODE grille =====================================================
 void grille() {
+
+    //declaration et initialisation des varriables
     int ligne, col, aleatoire = 0;
 
     int grille1[10][10] = {
@@ -82,9 +84,11 @@ void grille() {
             0,0,4,0,0,0,0,0,0,0,
             0,0,0,0,5,5,0,0,0,0};
 
+    // choix aleatoire d'un chifre pour le choix aléatoire d'une grille.
     srand((unsigned) time(NULL));
     aleatoire = 1 + rand() % 5;
 
+    // choix de la map elle se met dans la grille base
     switch (aleatoire) {
         case 1:
             for (ligne = 0; ligne < 10; ligne++) {
@@ -288,6 +292,55 @@ void jeux(){
 
 
 }
+//================================= MODE resultat =================================================
+void resultat(){
+
+    //ici l'on netoye la page
+    system("cls");
+
+
+
+
+
+    printf("Resultat\n");
+
+    system("pause");
+    menuBase();
+}
+//================================= MODE Utilisateur ==============================================
+void utilisateur() {
+
+    //ici l'on netoye la page
+    system("cls");
+
+    int choix1;
+
+    printf("utilisateur\n\n");
+    printf("1 : Me connecter\n");
+    printf("2 : M'inscrire\n");
+    printf("3 : Retour\n");
+
+    do{
+    printf("Que voulez-vous faire ?");
+    scanf("%d", choix1);
+
+    }while (choix1 <0 || choix1 >3);
+
+    switch (choix1) {
+        case 1:
+            break;
+        case 2:
+            break;
+        case 3: menuBase();
+        break;
+    }
+
+
+
+    system("pause");
+    menuBase();
+}
+
 //================================= MODE AIDE =====================================================
 void modeAide(){
 
@@ -327,20 +380,30 @@ void menuBase(){
     printf("Bataille Navale\n\n");
 
     printf("1 : Jouer\n");
-    printf("2 : Aide\n");
-    printf("3 : Quitter\n");
+    printf("2 : Utilisateur\n");
+    printf("3 : Resultat\n");
+    printf("4 : Aide\n");
+    printf("5 : Quitter\n");
 
-    //Chois vers les différents mode
-    printf("Choisissez une option :");
-    scanf("%d",&choix);
+    do {
+        //Chois vers les différents mode
+        printf("Choisissez une option :");
+        scanf("%d", &choix);
+    }while (choix <0 || choix >5);
 
     switch(choix){
         case 1:grille();
                 jeux() ;
             break;
-        case 2:modeAide() ;
+        case 2: utilisateur();
             break;
-        case 3: system("exit");
+        case 3: resultat();
+            break;
+        case 4:modeAide() ;
+            break;
+        case 5: system("exit");
+            break;
+
     }
 }
 
