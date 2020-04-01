@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <windows.h>
 #include <time.h>
+#include <stdlib.h>
 
 /*
  * ---------------------------------------------------------------------------
@@ -15,12 +16,18 @@
 void menuBase();
 void jeux();
 void grille();
+void inscription();
+void connexion();
+
+FILE* Logs = NULL;
+
 // gille de base car nous avons besoin ici pour l'utiliser dans toutes les fonction.
 int grilleBase [10][10] ={0};
 
+
 //================================= MODE grille =====================================================
 void grille() {
-
+    fprintf(Logs,"Choix de la grille \n");
     //declaration et initialisation des varriables
     int ligne, col, aleatoire = 0;
 
@@ -138,6 +145,7 @@ void grille() {
 
 //================================= MODE JEUX =====================================================
 void jeux(){
+
     //ici l'on netoye la page
     system("cls");
 
@@ -159,8 +167,6 @@ void jeux(){
             '~','~','~','~','~','~','~','~','~','~'};
 
     system("cls");
-
-
     //debut de la boucle qui nous sert à rafrechire la page
     do {
 
@@ -183,7 +189,8 @@ void jeux(){
             printf("|\n");
             printf("   |---|---|---|---|---|---|---|---|---|---|\n");
         }
-
+        //fais une ligne dans le fichier logs
+        fprintf(Logs,"Affichage du jeux \n");
 
         //demande des choix à l'utilisteur
 
@@ -206,7 +213,8 @@ void jeux(){
             }
         } while (grilleBase[horChoisi][verChoisi] == 9);
 
-
+        //fais une ligne dans le fichier logs
+        fprintf(Logs,"Choix des cases \n");
 
         //toutes les posibilité de jeux par le joueur (affichage de gagner ou pas, X ou O)
         if (grilleBase[horChoisi][verChoisi] == 0) {
@@ -277,6 +285,9 @@ void jeux(){
             printf(" couler");
             torpilleur=0;
         }
+        //fais une ligne dans le fichier logs
+        fprintf(Logs,"Fin de la partie\n");
+
         if(gagner==17){
             printf("gagner");
         }
@@ -284,7 +295,9 @@ void jeux(){
         system("cls");
     }while(gagner<17);
 
-    //Fin de la partie avec fonction de retour au menu 
+    //Fin de la partie avec fonction de retour au menu
+    //fais une ligne dans le fichier logs
+    fprintf(Logs,"Affichage du résultat de la partie \n");
     system("cls");
     printf("\nVous avez fini la partie avec %d coups\n\n",coups);
     system("pause");
@@ -294,6 +307,9 @@ void jeux(){
 }
 //================================= MODE resultat =================================================
 void resultat(){
+
+    //fais une ligne dans le fichier logs
+    fprintf(Logs,"Affichage des résultats du joueur \n");
 
     //ici l'on netoye la page
     system("cls");
@@ -313,7 +329,10 @@ void utilisateur() {
     //ici l'on netoye la page
     system("cls");
 
-    int choix1;
+    int choix;
+
+    //fais une ligne dans le fichier logs
+    fprintf(Logs,"Affichage du menu utilisateur \n");
 
     printf("utilisateur\n\n");
     printf("1 : Me connecter\n");
@@ -322,14 +341,17 @@ void utilisateur() {
 
     do{
     printf("Que voulez-vous faire ?");
-    scanf("%d", choix1);
+    scanf("%d", &choix);
 
-    }while (choix1 <0 || choix1 >3);
+    }while (choix <1 || choix >3);
 
-    switch (choix1) {
+
+    switch (choix) {
         case 1:
+            connexion();
             break;
         case 2:
+                inscription();
             break;
         case 3: menuBase();
         break;
@@ -340,9 +362,47 @@ void utilisateur() {
     system("pause");
     menuBase();
 }
+//================================= inscription =====================================================
+void inscription (){
 
+    signed char utilisateur [100];
+    FILE* fichier = NULL;
+    do {
+        //ici l'on netoye la page
+        system("cls");
+        printf("M'inscrire\n\n");
+        printf("Choisisez votre nom d'utilisateur : ");
+        scanf("%s", utilisateur);
+        fichier = fopen(utilisateur, "r+");
+    }while(fichier != NULL);
+    fichier = fopen(utilisateur, "w");
+    //fais une ligne dans le fichier logs
+    fprintf(Logs,"Création d'un utilisateur \n");
+
+    fclose(fichier);
+
+}
+//================================= connexion =====================================================
+void connexion (){
+    signed char utilisateur [100];
+    FILE* fichier = NULL;
+    do {
+        //ici l'on netoye la page
+        system("cls");
+        printf("M'inscrire\n\n");
+        printf("Choisisez votre nom d'utilisateur : ");
+        scanf("%s", utilisateur);
+        fichier = fopen(utilisateur, "r+");
+    }while(fichier == NULL);
+    //fais une ligne dans le fichier logs
+    fprintf(Logs,"Connextion a un utilisateur\n");
+
+}
 //================================= MODE AIDE =====================================================
 void modeAide(){
+
+    //fais une ligne dans le fichier logs
+    fprintf(Logs,"Affichage du mode aide \n");
 
     //ici l'on netoye la page
     system("cls");
@@ -371,6 +431,9 @@ void modeAide(){
 }
 //================================= MENU BASE =====================================================
 void menuBase(){
+
+    //fais une ligne dans le fichier logs
+    fprintf(Logs,"Affichage du menu \n");
 
     //ici l'on netoye la page
     system("cls");
@@ -410,12 +473,16 @@ void menuBase(){
 //================================= MAIN =====================================================
 int main(){
 
+    Logs = fopen("Logs", "a");
+    fprintf(Logs,"Ouverture du programme \n");
+
     //l'on choisis le nom de la console
     SetConsoleTitle("Bataille Navale");
 
     //l'on choissi de metre en premier la fonction menuBase
     menuBase();
 
-
+    fprintf(Logs, "Fermeture du programme \n\n");
+    fclose(Logs);
     return 0;
 }
