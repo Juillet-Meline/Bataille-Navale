@@ -7,8 +7,8 @@
  * ---------------------------------------------------------------------------
  * Createur : Mikael Juillet
  * But : Faire une bataille navale dans le cadre du cour MA-20.
- * Verssion : travail sur la verssion 1.0 - verssion total 0.7
- * Date : 26.03.2020
+ * Verssion : travail sur la verssion 1.0 - verssion total 0.9
+ * Date : 08.04.2020
  * ---------------------------------------------------------------------------
  */
 
@@ -289,7 +289,7 @@ void jeux(){
         fprintf(Logs,"Fin de la partie\n");
 
         if(gagner==17){
-            printf("gagner");
+            printf("\ngagner\n");
         }
         Sleep(700);
         system("cls");
@@ -297,38 +297,55 @@ void jeux(){
 
     //Fin de la partie avec fonction de retour au menu
     //fais une ligne dans le fichier logs
-    fprintf(Logs,"Affichage du résultat de la partie \n");
+    fprintf(Logs,"\n\nAffichage du résultat de la partie \n");
     system("cls");
     printf("\nVous avez fini la partie avec %d coups\n\n",coups);
+
+    FILE* resutats = NULL;
+    resutats = fopen("resutats", "a");
+    fprintf(resutats, "Resultats %d \n", coups);
+    fclose(resutats);
+
     system("pause");
     menuBase();
 
 
 }
+
 //================================= MODE resultat =================================================
 void resultat(){
 
+    signed char texte [500];
     //fais une ligne dans le fichier logs
-    fprintf(Logs,"Affichage des résultats du joueur \n");
+    fprintf(Logs,"Affichage des résultats des joueurs \n");
 
     //ici l'on netoye la page
     system("cls");
 
+    FILE* resutats = NULL;
+    resutats = fopen("resutats", "r");
 
 
+    printf("Resultat des anciennes parties\n");
 
+    while(fgets(texte, 499, resutats) != NULL){
+        printf("%s\n",texte);
+    }
 
-    printf("Resultat\n");
+    fclose(resutats);
 
     system("pause");
     menuBase();
 }
+
+
 //================================= MODE Utilisateur ==============================================
 void utilisateur() {
 
     //ici l'on netoye la page
     system("cls");
 
+    //declaration et initialisation des varriables
     int choix;
 
     //fais une ligne dans le fichier logs
@@ -351,9 +368,10 @@ void utilisateur() {
             connexion();
             break;
         case 2:
-                inscription();
+            inscription();
             break;
-        case 3: menuBase();
+        case 3:
+            menuBase();
         break;
     }
 
@@ -362,6 +380,8 @@ void utilisateur() {
     system("pause");
     menuBase();
 }
+
+
 //================================= inscription =====================================================
 void inscription (){
 
@@ -380,12 +400,14 @@ void inscription (){
     fprintf(Logs,"Création d'un utilisateur \n");
 
     fclose(fichier);
-
 }
+
+
 //================================= connexion =====================================================
-void connexion (){
-    signed char utilisateur [100];
-    FILE* fichier = NULL;
+void connexion() {
+
+    signed char utilisateur[100];
+    FILE *fichier = NULL;
     do {
         //ici l'on netoye la page
         system("cls");
@@ -393,11 +415,12 @@ void connexion (){
         printf("Choisisez votre nom d'utilisateur : ");
         scanf("%s", utilisateur);
         fichier = fopen(utilisateur, "r+");
-    }while(fichier == NULL);
+    } while (fichier == NULL);
     //fais une ligne dans le fichier logs
-    fprintf(Logs,"Connextion a un utilisateur\n");
+    fprintf(Logs, "Connextion a un utilisateur\n");
 
 }
+
 //================================= MODE AIDE =====================================================
 void modeAide(){
 
@@ -429,6 +452,8 @@ void modeAide(){
     menuBase();
 
 }
+
+
 //================================= MENU BASE =====================================================
 void menuBase(){
 
@@ -456,7 +481,7 @@ void menuBase(){
 
     switch(choix){
         case 1:grille();
-                jeux() ;
+                jeux();
             break;
         case 2: utilisateur();
             break;
